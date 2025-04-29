@@ -36,9 +36,9 @@ const Hero = () => (
         }
         description="Critical insights shouldn't leave with critical employees. Remna captures and preserves the expertise your organization depends on — safely, privately, permanently."
         button={
-          <a href="/pricing">
+          <Link href="/pricing">
             <Button xl>Get Started</Button>
-          </a>
+          </Link>
         }
       />
     </Section>
