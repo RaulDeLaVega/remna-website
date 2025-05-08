@@ -3,6 +3,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
 
+/** @type {import('next').NextConfig} */
 module.exports = withBundleAnalyzer({
   eslint: {
     dirs: ['.'],
@@ -15,28 +16,7 @@ module.exports = withBundleAnalyzer({
   images: {
     unoptimized: true,
   },
-  output: 'export', // <<< ADD THIS LINE HERE
+  output: 'export', // Required for next export
 
-  async headers() {
-    return [
-      {
-        source: '/_next/static/(.*)',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
-          },
-        ],
-      },
-      {
-        source: '/assets/(.*)',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
-          },
-        ],
-      },
-    ];
-  },
+  // Note: headers() is removed because it's not supported in static export
 });

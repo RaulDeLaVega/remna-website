@@ -1,44 +1,62 @@
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
 import { Background } from '../background/Background';
 import { Button } from '../button/Button';
 import { HeroOneButton } from '../hero/HeroOneButton';
 import { Section } from '../layout/Section';
-import { NavbarTwoColumns } from '../navigation/NavbarTwoColumns';
-import { Logo } from './Logo';
+
+// Animated text component for title line
+const RotatingTitle = () => {
+  const texts = ['KNOWLEDGE FADES.', 'REMNA REMEMBERS.'];
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIndex((i) => (i + 1) % texts.length);
+    }, 6000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="relative h-20 overflow-hidden text-center">
+      <span
+        key={index}
+        className="absolute left-1/2 top-0 -translate-x-1/2 animate-fade-in-out text-3xl font-extrabold uppercase leading-snug tracking-wide text-gray-900"
+      >
+        {texts[index]}
+      </span>
+    </div>
+  );
+};
 
 const Hero = () => (
   <Background color="bg-gray-100">
-    <Section yPadding="py-6">
-      <NavbarTwoColumns logo={<Logo xl />}>
-        <li>
-          <Link href="/">Home</Link>
-        </li>
-        <li>
-          <Link href="/pricing">Pricing</Link>
-        </li>
-        <li>
-          <Link href="#about">About</Link>
-        </li>
-        <li>
-          <Link href="/signin">Sign in</Link>
-        </li>
-      </NavbarTwoColumns>
-    </Section>
-
     <Section yPadding="pt-20 pb-32">
       <HeroOneButton
         title={
           <>
-            {'Preserve Knowledge.\n'}
-            <span className="text-primary-500">Protect Your Future.</span>
+            <RotatingTitle />
+            <span className="mt-4 block text-center text-xl font-medium text-primary-500">
+              Preserve knowledge. Protect your future.
+            </span>
           </>
         }
-        description="Critical insights shouldn't leave with critical employees. Remna captures and preserves the expertise your organization depends on — safely, privately, permanently."
+        description="Remna helps you capture and retain the critical know-how of departing employees. Prevent knowledge loss. Preserve continuity. Stay future-ready."
         button={
-          <Link href="/pricing">
-            <Button xl>Get Started</Button>
-          </Link>
+          <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <Link href="/pricing">
+              <Button xl>Buy Now</Button>
+            </Link>
+            <a
+              href="https://remna-downloads.s3.amazonaws.com/RemnaDesktopInstaller.exe"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block rounded-lg bg-gray-800 px-6 py-3 text-lg font-semibold text-white transition hover:bg-gray-700"
+            >
+              Download App
+            </a>
+          </div>
         }
       />
     </Section>

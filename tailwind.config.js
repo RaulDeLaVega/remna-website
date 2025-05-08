@@ -41,6 +41,15 @@ module.exports = {
       lineHeight: {
         hero: '4.5rem',
       },
+      animation: {
+        'fade-in-out': 'fadeInOut 6s ease-in-out infinite',
+      },
+      keyframes: {
+        fadeInOut: {
+          '0%, 100%': { opacity: 0 },
+          '25%, 75%': { opacity: 1 },
+        },
+      },
     },
   },
   plugins: [],
